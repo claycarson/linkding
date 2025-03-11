@@ -1,11 +1,13 @@
 services:
   linkding:
-    container_name: "${LD_CONTAINER_NAME:-linkding}"
-    image: sissbruecker/linkding:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${LD_CONTAINER_NAME}
     ports:
-      - "${LD_HOST_PORT:-9090}:9090"
+      - "${LD_HOST_PORT}:9090"  # Maps the host port to container port 9090
     volumes:
-      - "${LD_HOST_DATA_DIR:-./data}:/etc/linkding/data"
+      - ${LD_HOST_DATA_DIR}:/app/data  # Mount the data directory into the container
     env_file:
-      - .env
-    restart: unless-stopped
+      - .env  # Load environment variables from the .env file
+    restart: unless-stopped  # Restart the container if it stops unexpectedly
