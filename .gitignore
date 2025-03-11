@@ -196,3 +196,4 @@ typings/
 /chromium-profile
 # direnv
 /.direnv
+.env
